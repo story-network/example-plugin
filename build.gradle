@@ -46,3 +46,16 @@ repositories {
 dependencies {
     compile 'sh.pancake:pancake-server:1.0.0'
 }
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+
+    }
+}
