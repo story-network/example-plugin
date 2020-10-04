@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import sh.pancake.server.plugin.IPancakePlugin;
@@ -38,8 +39,9 @@ public class ExamplePlugin implements IPancakePlugin {
 
                     CommandSourceStack source = ctx.getSource();
                     Entity entity = source.getEntity();
-                    
-                    source.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getX(), power, BlockInteraction.DESTROY);
+
+                    source.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getZ(), power, BlockInteraction.DESTROY);
+                    source.sendSuccess(new TextComponent("Created explosion with power " + power), false);
                     
                     // We executed once
                     return 1;
