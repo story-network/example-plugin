@@ -40,6 +40,11 @@ public class ExamplePlugin implements IPancakePlugin {
                     CommandSourceStack source = ctx.getSource();
                     Entity entity = source.getEntity();
 
+                    if (entity == null) {
+                        source.sendFailure(new TextComponent("Cannot run on console"));
+                        return 0;
+                    }
+
                     source.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getZ(), power, BlockInteraction.DESTROY);
                     source.sendSuccess(new TextComponent("Created explosion with power " + power), false);
                     
