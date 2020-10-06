@@ -1,5 +1,7 @@
 package sh.pancake.plugin.example;
 
+import java.lang.StackWalker.StackFrame;
+
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -32,7 +34,7 @@ public class ExamplePlugin implements IPancakePlugin {
         dispatcher.register(
             LiteralArgumentBuilder.<ICommandStack>literal("explode")
             // Check if executor has op
-            .requires((source) -> source.hasPermission(3))
+            .requires((stack) -> stack.getSourceStack().hasPermission(3))
             // Limit 0.0 to max 100.0
             .then(RequiredArgumentBuilder.<ICommandStack, Float>argument("power", FloatArgumentType.floatArg(0.0f, 100.0f))
                 .executes((ctx) -> {
